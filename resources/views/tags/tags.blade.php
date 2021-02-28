@@ -28,13 +28,11 @@
               
 
                 <div class="dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
-                    @forelse($posts as $post)
-                        <h1>{{$post->title}}</h1>
-                       
-                        <p>{{optional($post->user)->name}}</p>
+                    @forelse($tags as $tag)
+                        <h1>{{$tag->name}}</h1>
                         <ul>
-                            @foreach($post->tags as $tag)
-                                <li>{{$tag->name}}</li>
+                            @foreach($tag->posts as $post)
+                                <li>{{$post->title}}</li>
                             @endforeach
                         </ul>
 

@@ -70,7 +70,42 @@ Route::get('post',function(){
     //     'title' => 'Title first of user 2 goes here',
     // ]);
 
-    $posts = \App\Models\Post::all();
+    //$posts = \App\Models\Post::all();
+    $posts = \App\Models\Post::with('user','tags')->get();
     //dd($posts);
     return view('posts/index',compact('posts'));
 });
+
+// many to many relationship between post and tag
+
+Route::get('post-tag',function(){
+
+    // \App\Models\Tag::create([
+    //     'name' => 'PHP',
+    // ]);
+
+    // \App\Models\Tag::create([
+    //     'name' => 'Javascript',
+    // ]);
+
+    // \App\Models\Tag::create([
+    //     'name' => 'React',
+    // ]);
+
+    // \App\Models\Tag::create([
+    //     'name' => 'Mongo',
+    // ]);
+        $tag = \App\Models\Tag::first();
+        $post = \App\Models\Post::first();
+         //$post->tags()->detach($tag);
+         //$post->tags()->sync($tag);
+        //$post->tags()->attach($tag);
+        //$post->tags()->attach([2,3]);
+});
+
+Route::get('tags',function(){
+
+    $tags = App\Models\Tag::with('posts')->get();
+    return view('tags/tags',compact('tags'));
+});
+

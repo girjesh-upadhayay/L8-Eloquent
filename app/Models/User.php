@@ -50,4 +50,8 @@ class User extends Authenticatable
 
         return $this->hasMany(\App\Models\Address::class,'user_id','id');
     }
+
+    public function posts(){
+        return $this->hasMany(\App\Models\Post::class,'user_id','id');
+    }
 }

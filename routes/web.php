@@ -38,11 +38,39 @@ Route::get('users',function(){
     // ]);
 
     $users = User::with('address','addresses')->get();
-    //dd($users);
+
+    // get those user who has created post
+    $users = User::has('posts')->with('posts')->get();
+   
+    // get those user who have post with wildcard
+    $users = User::whereHas('posts',function($query){
+        $query->where('title','like','%Title%');
+    })->with('posts')->get();
+
+    // where does not have post
+    $users = User::doesntHave('posts')->with('posts')->get();
+    dd($users);
     return view('users/index',compact('users'));
 
 });
 
 Route::get('post',function(){
+    // \App\Models\Post::create([
+    //     'user_id' => 1,
+    //     'title' => 'Title first of user 1 goes here',
+    // ]);
 
+    // \App\Models\Post::create([
+    //     'user_id' => 1,
+    //     'title' => 'Title second of user 1 goes here',
+    // ]);
+
+    // \App\Models\Post::create([
+    //     'user_id' => 2,
+    //     'title' => 'Title first of user 2 goes here',
+    // ]);
+
+    $posts = \App\Models\Post::all();
+    //dd($posts);
+    return view('posts/index',compact('posts'));
 });

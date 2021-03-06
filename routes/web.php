@@ -71,6 +71,7 @@ Route::get('post',function(){
     // ]);
 
     //$posts = \App\Models\Post::all();
+    //$post->tags->first()->pivot->created_at; // to get extra field from pivot table like this
     $posts = \App\Models\Post::with('user','tags')->get();
     //dd($posts);
     return view('posts/index',compact('posts'));
